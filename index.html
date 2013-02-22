@@ -1,0 +1,96 @@
+---
+layout: layout
+title: "BioD home page"
+---
+
+<section class="content">
+    <h1>Why use BioD for processing BAM data?</h1>
+
+    <section class="why">
+    <section class="cword">Terse</section>
+    <section class="explanation">
+    <p> Most operations require just a few keystrokes, much like in Python, Perl, or Ruby.</p>
+        {% highlight d %}
+import bio.bam.reader, bio.bam.pileup;
+import std.stdio;
+
+void main(string[] args) {
+    auto bam = new BamReader(args[1]);
+    auto reads = bam["chr2"][500 .. 510];
+    foreach (column; reads.makePileup())
+        writeln(column.coverage);
+}{% endhighlight %}
+        </section>
+    </section>
+
+    <section class="why">
+        <section class="cword">Fast</section>
+        <section class="explanation">
+        <p>D is a compiled language. As such, it offers speeds close to C++,
+        especially when <a href="http://wiki.dlang.org/LDC">LDC</a> or 
+        <a href="http://wiki.dlang.org/GDC">GDC</a> compiler is used.</p>
+        <p>Many hours were dedicated to code profiling in&nbsp;order&nbsp;to
+        make the library as fast as possible, avoiding heap allocations and virtual calls.</p>
+        <p>Blocks, from which BAM files consist, are seamlessly packed/unpacked in parallel, employing all CPU cores.</p>
+        </section>
+    </section>
+
+    <section class="why">
+        <section class="cword">Reliable</section>
+        <section class="explanation">
+        <p>Every non-trivial algorithm in the library is covered by unittests,
+        which can be easily run from the command line (see below).</p>
+        <p>Whenever you find out that something doesn't work correctly, please
+            <a href="http://github.com/biod/biod/issues">report</a> an issue,
+            and the test suite will grow once it's fixed!</p>
+        </section>
+    </section>
+
+    <br />
+
+    <section id="quick-start">
+        <section class="cword">Quick start</section>
+        <section>
+        <table style="padding-left: 20px; margin: 0px 10px 0px 10px;">
+            <tbody>
+                <tr height="30px">
+                    <td width="300px">1. Install DMD compiler</td>
+                    <td style="text-align: center">(<a href="http://wiki.dlang.org/Installing_DMD">instructions</a>)</td>
+                </tr>
+                <tr height="30px">
+                    <td>2. Download BioD source code</td>
+                    <td> {% highlight sh %}
+git clone git://github.com/biod/BioD.git{% endhighlight %}
+                    </td>
+                </tr>
+                <tr height="30px">
+                    <td>3. Run unittests</td>
+                    <td> {% highlight sh %}
+cd BioD/test && rdmd -I.. -unittest unittests.d{% endhighlight %}
+                    </td>
+                </tr>
+                <tr height="30px">
+                    <td>4. Run some examples</td>
+                    <td> {% highlight sh %}
+cd ../examples && rdmd -I.. example1.d{% endhighlight %}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        </section>
+        </section>
+
+        <section id="info">
+            <section class="info-block">
+            <section class="cword kword">License: <font color="black">GPL v2+</font></section>
+            </section>
+            <section class="info-block">
+                <section class="cword kword">Supported platforms:</section>
+                <section class="cword">Linux, Mac OS X</section>
+            </section>
+            <section class="info-block">
+                <section class="cword kword">File formats:</section>
+                <section class="cword">BAM, SAM, SFF</section>
+            </section>
+        </section>
+</section>

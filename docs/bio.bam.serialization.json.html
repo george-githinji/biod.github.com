@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+	<meta charset="utf-8">
+	<title>bio.bam.serialization.json - BioD documentation</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+
+	<!-- styles -->
+	<link href="/docs/assets/css/bootstrap.css" rel="stylesheet">
+	<style type="text/css">
+		body {
+		padding-top: 60px;
+		padding-bottom: 40px;
+		}
+		.sidebar-nav {
+		padding: 9px 0;
+		}
+	</style>
+	<link href="/docs/assets/css/bootstrap-responsive.css" rel="stylesheet">
+	<link href="/docs/bootdoc.css" rel="stylesheet">
+
+	<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+	<!--[if lt IE 9]>
+		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+
+	<!-- fav and touch icons -->
+	<link rel="shortcut icon" href="/docs/assets/ico/favicon.ico">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/docs/assets/ico/apple-touch-icon-114-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/docs/assets/ico/apple-touch-icon-72-precomposed.png">
+	<link rel="apple-touch-icon-precomposed" href="/docs/assets/ico/apple-touch-icon-57-precomposed.png">
+	
+	<!-- Introduce DDoc settings required by JavaScript -->
+	<script type="text/javascript">
+		var Title = 'bio.bam.serialization.json';
+		var SourceRepository = 'http://github.com/biod/BioD/tree/master';
+		var PackageSeparator = '.';
+	</script>
+	
+	<style type="text/css">
+		.ddoc-icon-variable { background-image: url('/docs/ddoc-icons/var.png'); }
+		.ddoc-icon-function { background-image: url('/docs/ddoc-icons/func.png'); }
+		.ddoc-icon-property { background-image: url('/docs/ddoc-icons/property.png'); }
+		.ddoc-icon-struct { background-image: url('/docs/ddoc-icons/struct.png'); }
+		.ddoc-icon-class { background-image: url('/docs/ddoc-icons/class.png'); }
+		.ddoc-icon-enum { background-image: url('/docs/ddoc-icons/enum.png'); }
+		.ddoc-icon-template { background-image: url('/docs/ddoc-icons/template.png'); }
+	</style>
+	</head>
+
+	<body>
+	<!--
+	JavaScript reaps the module list from this element.
+	This is required for the MODULES macro to be reusable
+	in a noscript element later.
+	-->
+	<ul id="module-list-source" class="hidden">
+		
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sam.reader.html" title="bio.sam.reader"><i class="icon-th"></i>bio.sam.reader</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sam.header.html" title="bio.sam.header"><i class="icon-th"></i>bio.sam.header</a></li>
+	<li class="sidebar-list-entry tree-leaf"><a href="bio.bam.reader.html" title="bio.bam.reader"><i class="icon-th"></i>bio.bam.reader</a></li>
+	<li class="sidebar-list-entry tree-leaf"><a href="bio.bam.writer.html" title="bio.bam.writer"><i class="icon-th"></i>bio.bam.writer</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.read.html" title="bio.bam.read"><i class="icon-th"></i>bio.bam.read</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.tagvalue.html" title="bio.bam.tagvalue"><i class="icon-th"></i>bio.bam.tagvalue</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.reference.html" title="bio.bam.reference"><i class="icon-th"></i>bio.bam.reference</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.pileup.html" title="bio.bam.pileup"><i class="icon-th"></i>bio.bam.pileup</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.baseinfo.html" title="bio.bam.baseinfo"><i class="icon-th"></i>bio.bam.baseinfo</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.serialization.json.html" title="bio.bam.serialization.json"><i class="icon-th"></i>bio.bam.serialization.json</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.serialization.sam.html" title="bio.bam.serialization.sam"><i class="icon-th"></i>bio.bam.serialization.sam</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.md.core.html" title="bio.bam.md.core"><i class="icon-th"></i>bio.bam.md.core</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.md.operation.html" title="bio.bam.md.operation"><i class="icon-th"></i>bio.bam.md.operation</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.md.parse.html" title="bio.bam.md.parse"><i class="icon-th"></i>bio.bam.md.parse</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.md.reconstruct.html" title="bio.bam.md.reconstruct"><i class="icon-th"></i>bio.bam.md.reconstruct</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.iontorrent.flowcall.html" title="bio.bam.iontorrent.flowcall"><i class="icon-th"></i>bio.bam.iontorrent.flowcall</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.iontorrent.flowindex.html" title="bio.bam.iontorrent.flowindex"><i class="icon-th"></i>bio.bam.iontorrent.flowindex</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.baifile.html" title="bio.bam.baifile"><i class="icon-th"></i>bio.bam.baifile</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.bai.bin.html" title="bio.bam.bai.bin"><i class="icon-th"></i>bio.bam.bai.bin</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.bai.chunk.html" title="bio.bam.bai.chunk"><i class="icon-th"></i>bio.bam.bai.chunk</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.bai.indexing.html" title="bio.bam.bai.indexing"><i class="icon-th"></i>bio.bam.bai.indexing</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.splitter.html" title="bio.bam.splitter"><i class="icon-th"></i>bio.bam.splitter</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.constants.html" title="bio.bam.constants"><i class="icon-th"></i>bio.bam.constants</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.readrange.html" title="bio.bam.readrange"><i class="icon-th"></i>bio.bam.readrange</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.randomaccessmanager.html" title="bio.bam.randomaccessmanager"><i class="icon-th"></i>bio.bam.randomaccessmanager</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.referenceinfo.html" title="bio.bam.referenceinfo"><i class="icon-th"></i>bio.bam.referenceinfo</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.reader.html" title="bio.sff.reader"><i class="icon-th"></i>bio.sff.reader</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.writer.html" title="bio.sff.writer"><i class="icon-th"></i>bio.sff.writer</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.read.html" title="bio.sff.read"><i class="icon-th"></i>bio.sff.read</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.readrange.html" title="bio.sff.readrange"><i class="icon-th"></i>bio.sff.readrange</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.constants.html" title="bio.sff.constants"><i class="icon-th"></i>bio.sff.constants</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.index.html" title="bio.sff.index"><i class="icon-th"></i>bio.sff.index</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.block.html" title="bio.core.bgzf.block"><i class="icon-th"></i>bio.core.bgzf.block</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.blockrange.html" title="bio.core.bgzf.blockrange"><i class="icon-th"></i>bio.core.bgzf.blockrange</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.compress.html" title="bio.core.bgzf.compress"><i class="icon-th"></i>bio.core.bgzf.compress</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.constants.html" title="bio.core.bgzf.constants"><i class="icon-th"></i>bio.core.bgzf.constants</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.virtualoffset.html" title="bio.core.bgzf.virtualoffset"><i class="icon-th"></i>bio.core.bgzf.virtualoffset</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.inputstream.html" title="bio.core.bgzf.inputstream"><i class="icon-th"></i>bio.core.bgzf.inputstream</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.outputstream.html" title="bio.core.bgzf.outputstream"><i class="icon-th"></i>bio.core.bgzf.outputstream</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.base.html" title="bio.core.base"><i class="icon-th"></i>bio.core.base</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.region.html" title="bio.core.region"><i class="icon-th"></i>bio.core.region</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.sequence.html" title="bio.core.sequence"><i class="icon-th"></i>bio.core.sequence</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.tinymap.html" title="bio.core.tinymap"><i class="icon-th"></i>bio.core.tinymap</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.fasta.html" title="bio.core.fasta"><i class="icon-th"></i>bio.core.fasta</a></li>
+	</ul>
+	
+	<div class="navbar navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+				<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</a>
+				<a class="brand" href="/docs/index.html">BioD</a>
+				<div class="nav-collapse">
+					<ul class="nav">
+						<li class="active"><a href="/docs/index.html">Reference</a></li>
+					</ul>
+					
+					<form id="gotosymbol" class="navbar-search pull-left hidden">
+						<input type="text" class="search-query" placeholder="Go to symbol in bio.bam.serialization.json" data-provide="typeahead" data-items="4">
+					</form>
+					
+					<p class="navbar-text pull-right"><a href="https://github.com/biod/BioD">Github Page</a></p>
+				</div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+
+	<div class="container-fluid">
+		<div class="row-fluid">
+			<div class="span2">
+				<div class="well sidebar-nav">
+				<ul class="nav nav-list">
+					<li id="module-list" class="nav-header sidebar-list-entry">Modules<li>
+					<noscript>
+						
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sam.reader.html" title="bio.sam.reader"><i class="icon-th"></i>bio.sam.reader</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sam.header.html" title="bio.sam.header"><i class="icon-th"></i>bio.sam.header</a></li>
+	<li class="sidebar-list-entry tree-leaf"><a href="bio.bam.reader.html" title="bio.bam.reader"><i class="icon-th"></i>bio.bam.reader</a></li>
+	<li class="sidebar-list-entry tree-leaf"><a href="bio.bam.writer.html" title="bio.bam.writer"><i class="icon-th"></i>bio.bam.writer</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.read.html" title="bio.bam.read"><i class="icon-th"></i>bio.bam.read</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.tagvalue.html" title="bio.bam.tagvalue"><i class="icon-th"></i>bio.bam.tagvalue</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.reference.html" title="bio.bam.reference"><i class="icon-th"></i>bio.bam.reference</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.pileup.html" title="bio.bam.pileup"><i class="icon-th"></i>bio.bam.pileup</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.baseinfo.html" title="bio.bam.baseinfo"><i class="icon-th"></i>bio.bam.baseinfo</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.serialization.json.html" title="bio.bam.serialization.json"><i class="icon-th"></i>bio.bam.serialization.json</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.serialization.sam.html" title="bio.bam.serialization.sam"><i class="icon-th"></i>bio.bam.serialization.sam</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.md.core.html" title="bio.bam.md.core"><i class="icon-th"></i>bio.bam.md.core</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.md.operation.html" title="bio.bam.md.operation"><i class="icon-th"></i>bio.bam.md.operation</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.md.parse.html" title="bio.bam.md.parse"><i class="icon-th"></i>bio.bam.md.parse</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.md.reconstruct.html" title="bio.bam.md.reconstruct"><i class="icon-th"></i>bio.bam.md.reconstruct</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.iontorrent.flowcall.html" title="bio.bam.iontorrent.flowcall"><i class="icon-th"></i>bio.bam.iontorrent.flowcall</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.iontorrent.flowindex.html" title="bio.bam.iontorrent.flowindex"><i class="icon-th"></i>bio.bam.iontorrent.flowindex</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.baifile.html" title="bio.bam.baifile"><i class="icon-th"></i>bio.bam.baifile</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.bai.bin.html" title="bio.bam.bai.bin"><i class="icon-th"></i>bio.bam.bai.bin</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.bai.chunk.html" title="bio.bam.bai.chunk"><i class="icon-th"></i>bio.bam.bai.chunk</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.bai.indexing.html" title="bio.bam.bai.indexing"><i class="icon-th"></i>bio.bam.bai.indexing</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.splitter.html" title="bio.bam.splitter"><i class="icon-th"></i>bio.bam.splitter</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.constants.html" title="bio.bam.constants"><i class="icon-th"></i>bio.bam.constants</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.readrange.html" title="bio.bam.readrange"><i class="icon-th"></i>bio.bam.readrange</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.randomaccessmanager.html" title="bio.bam.randomaccessmanager"><i class="icon-th"></i>bio.bam.randomaccessmanager</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.bam.referenceinfo.html" title="bio.bam.referenceinfo"><i class="icon-th"></i>bio.bam.referenceinfo</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.reader.html" title="bio.sff.reader"><i class="icon-th"></i>bio.sff.reader</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.writer.html" title="bio.sff.writer"><i class="icon-th"></i>bio.sff.writer</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.read.html" title="bio.sff.read"><i class="icon-th"></i>bio.sff.read</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.readrange.html" title="bio.sff.readrange"><i class="icon-th"></i>bio.sff.readrange</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.constants.html" title="bio.sff.constants"><i class="icon-th"></i>bio.sff.constants</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.sff.index.html" title="bio.sff.index"><i class="icon-th"></i>bio.sff.index</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.block.html" title="bio.core.bgzf.block"><i class="icon-th"></i>bio.core.bgzf.block</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.blockrange.html" title="bio.core.bgzf.blockrange"><i class="icon-th"></i>bio.core.bgzf.blockrange</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.compress.html" title="bio.core.bgzf.compress"><i class="icon-th"></i>bio.core.bgzf.compress</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.constants.html" title="bio.core.bgzf.constants"><i class="icon-th"></i>bio.core.bgzf.constants</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.virtualoffset.html" title="bio.core.bgzf.virtualoffset"><i class="icon-th"></i>bio.core.bgzf.virtualoffset</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.inputstream.html" title="bio.core.bgzf.inputstream"><i class="icon-th"></i>bio.core.bgzf.inputstream</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.bgzf.outputstream.html" title="bio.core.bgzf.outputstream"><i class="icon-th"></i>bio.core.bgzf.outputstream</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.base.html" title="bio.core.base"><i class="icon-th"></i>bio.core.base</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.region.html" title="bio.core.region"><i class="icon-th"></i>bio.core.region</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.sequence.html" title="bio.core.sequence"><i class="icon-th"></i>bio.core.sequence</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.tinymap.html" title="bio.core.tinymap"><i class="icon-th"></i>bio.core.tinymap</a></li>
+    <li class="sidebar-list-entry tree-leaf"><a href="bio.core.fasta.html" title="bio.core.fasta"><i class="icon-th"></i>bio.core.fasta</a></li>
+					</noscript>
+					<li id="symbol-list" class="nav-header sidebar-list-entry hidden">bio.bam.serialization.json</li>
+				</ul>
+				</div><!--/.well -->
+			</div><!--/span-->
+			
+			<div class="span10">
+				<div class="row-fluid">
+					<div class="span11">
+						<ul id="module-breadcrumb" class="breadcrumb">
+							<noscript><h1>bio.bam.serialization.json</h1></noscript>
+						</ul>
+						
+					</div>
+					<div class="span1 offset11">
+						<a href="/docs/index.html"><img src="/docs/assets/img/icon-github.png" alt="BioD"/></a>
+					</div>
+				</div>
+				<div id="declaration-list">
+					<!-- Generated by Ddoc from /home/lomereiter/github/BioD//bio/bam/serialization/json.d -->
+<br><br>
+<hr><div class="row-fluid declaration"><h3>string <span class="symbol-target" id="toJson">&nbsp;</span><a class="symbol-link" href="#toJson">toJson</a>(Value <i>v</i>);
+</h3></div>
+<div class="declaration-content"><dl><p>Representation of tag value in SAM format
+</p>
+<dt>Example:</dt><dd>
+<pre class="d_code">    Value <b>v</b> = 2.7;
+    <span class="d_keyword">assert</span>(<u>toJson</u>(<b>v</b>) == <span class="d_string">"2.7"</span>);
+
+    <b>v</b> = [1, 2, 3];
+    <span class="d_keyword">assert</span>(<u>toJson</u>(<b>v</b>) == <span class="d_string">"[1,2,3]"</span>);
+</pre>
+</dd>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="jsonSerializeFloat">&nbsp;</span><a class="symbol-link" href="#jsonSerializeFloat">jsonSerializeFloat</a>(S)(ref S <i>stream</i>, float <i>f</i>);
+</h3></div>
+<div class="declaration-content"><dl><p>JSON doesn't support NaN and +/- infinity.
+ Therefore the approach taken here is to represent
+ infinity as 1.0e+1024, and NaN as <span class="d_keyword">null</span>.</p>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="jsonSerializeCharacterRange">&nbsp;</span><a class="symbol-link" href="#jsonSerializeCharacterRange">jsonSerializeCharacterRange</a>(S, R)(ref S <i>stream</i>, R <i>chars</i>);
+</h3></div>
+<div class="declaration-content"><dl><p>Prints string to <span class="inlinecode">stream</span>, with escaping.and quoting.</p>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="jsonSerialize">&nbsp;</span><a class="symbol-link" href="#jsonSerialize">jsonSerialize</a>(S)(const(Value) <i>v</i>, ref S <i>stream</i>);
+</h3></div>
+<div class="declaration-content"><dl><p>Print SAM representation to FILE* or append it to char[]/char* 
+ (in char* case it's your responsibility to allocate enough memory)</p>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>string <span class="symbol-target" id="toJson">&nbsp;</span><a class="symbol-link" href="#toJson">toJson</a>(BamRead <i>alignment</i>, ReferenceSequenceInfo[] <i>info</i>);
+</h3></div>
+<div class="declaration-content"><dl><p>Get JSON representation of an <i>alignment</i>.
+</p>
+<p>Requires providing information about reference sequences,
+ since <i>alignment</i> struct itself doesn't hold their names, only integer ids.
+ 
+</p>
+<dt>Example:</dt><dd>
+<pre class="d_code"> <u>toJson</u>(<b>alignment</b>, bam.reference_sequences);
+</pre>
+</dd>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="jsonSerialize">&nbsp;</span><a class="symbol-link" href="#jsonSerialize">jsonSerialize</a>(S)(BamRead <i>alignment</i>, ReferenceSequenceInfo[] <i>info</i>, ref S <i>stream</i>);
+</h3></div>
+<div class="declaration-content"><dl><p>Serialize <span class="inlinecode">alignment</span> to FILE* or append it to char[]/char* 
+ (in char* case it's your responsibility to allocate enough memory)</p>
+</dl>
+</div>
+
+
+				</div>
+				
+				<hr>
+				
+				<footer class="pull-left">
+					<p>Page generated with <a href="https://github.com/JakobOvrum/bootDoc">bootDoc</a>.</p>
+				</footer>
+				
+				<footer class="pull-right">
+					<p>&copy; Artem Tarasov 2012-2013</p>
+				</footer>
+			</div>
+		</div>
+	</div><!--/.fluid-container-->
+
+	<!-- Bootstrap javascript
+	================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="/docs/assets/js/jquery.min.js"></script>
+	<script src="/docs/assets/js/bootstrap.min.js"></script>
+	
+	<!-- bootDoc javascript
+	================================================== -->
+	<script src="/docs/bootdoc.js"></script>
+	
+	</body>
+</html>

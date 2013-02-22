@@ -1,0 +1,14 @@
+PROJECTNAME = BioD
+REFERENCETOP = /docs/index.html
+REPOSRCTREE = http://github.com/biod/BioD/tree/master
+TITLEBARTEXT = <a href="https://github.com/biod/BioD">Github Page</a>
+RESOURCEROOT = /docs/
+ISSUETRACKER = https://github.com/biod/BioD/issues/$1
+DEFAULTPACKAGE = bio
+PACKAGESEP = .
+FAVICON = $(RESOURCEROOT)assets/ico/favicon.ico
+LOGOSRC = $(RESOURCEROOT)assets/img/icon-github.png
+LOGOALT = $(PROJECTNAME)
+LOGOLINK = $(REFERENCETOP)
+COPYRIGHT = Artem Tarasov
+COPYRIGHTFOOTER = &copy; $(COPYRIGHT) 2012-$(YEAR)
