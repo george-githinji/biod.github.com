@@ -203,36 +203,60 @@
 <br><br>
 <hr><div class="row-fluid declaration"><h3>class <span class="symbol-target" id="BamReader">&nbsp;</span><a class="symbol-link" href="#BamReader">BamReader</a>;
 </h3></div>
-<div class="declaration-content"><dl><p>Represents BAM file</p>
+<div class="declaration-content"><dl><p>BAM file reader, featuring parallel decompression of BGZF blocks.</p>
 </dl>
-<div class="offset1 member-list"><hr><div class="row-fluid declaration"><h3> this(string <i>filename</i>, TaskPool <i>task_pool</i> = taskPool);
+<div class="offset1 member-list"><hr><div class="row-fluid declaration"><h3> this(std.<i>stream</i>.Stream <i>stream</i>, std.parallelism.TaskPool <i>task_pool</i> = std.parallelism.taskPool);
+<br> this(string <i>filename</i>, std.parallelism.TaskPool <i>task_pool</i> = std.parallelism.taskPool);
 </h3></div>
-<div class="declaration-content"><dl><p>Constructor taking <i>filename</i> of BAM file to open,
-      and optionally, task pool to use.
+<div class="declaration-content"><dl><p>Creates reader associated with file or <i>stream</i>.
+      (If <i>stream</i> constructor is used, no random access is possible.)
+      <br>
+      Optionally, task pool can be specified.
+      It will be used to unpack BGZF blocks in parallel.
 </p>
-<p>Currently, opens the file read-only since library
-      has no support for writing yet.</p>
+<dt>Examples</dt><dd><pre class="d_code">      <span class="d_keyword">import</span> std.parallelism, bio.bam.reader;
+      <span class="d_keyword">void</span> main() {
+        <span class="d_keyword">auto</span> pool = <span class="d_keyword">new</span> TaskPool(4); <span class="d_comment">// use 4 threads
+</span>        <span class="d_keyword">scope</span> (exit) pool.finish();  <span class="d_comment">// don't forget!
+</span>        <span class="d_keyword">auto</span> bam = <span class="d_keyword">new</span> BamReader(<span class="d_string">"file.bam"</span>, pool);
+        ...
+      }
+</pre>
+</dd>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>@property bool <span class="symbol-target" id="has_index">&nbsp;</span><a class="symbol-link" href="#has_index">has_index</a>();
 </h3></div>
-<div class="declaration-content"><dl><p>True if associated BAI file was found</p>
+<div class="declaration-content"><dl><p>True if BAI file was found for this BAM file.
+      This is necessary for any random-access operations.
+      <br>
+      Looks for files in the same directory which filename
+      is either the file name of BAM file with '.bai' appended,
+      or with the last extension replaced with '.bai'
+      (that is, for <i>file.bam</i> paths <i>file.bai</i> and
+      <i>file.bam.bai</i> will be checked)</p>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>const @property string <span class="symbol-target" id="filename">&nbsp;</span><a class="symbol-link" href="#filename">filename</a>();
 </h3></div>
-<div class="declaration-content"><dl><p>Filename, if available</p>
+<div class="declaration-content"><dl><p>Filename, if the object was created via file name constructor,
+        <span class="inlinecode"><span class="d_keyword">null</span></span> otherwise.</p>
 </dl>
 </div>
-<hr><div class="row-fluid declaration"><h3>VirtualOffset <span class="symbol-target" id="eofVirtualOffset">&nbsp;</span><a class="symbol-link" href="#eofVirtualOffset">eofVirtualOffset</a>();
+<hr><div class="row-fluid declaration"><h3>bio.core.bgzf.virtualoffset.VirtualOffset <span class="symbol-target" id="eofVirtualOffset">&nbsp;</span><a class="symbol-link" href="#eofVirtualOffset">eofVirtualOffset</a>();
 </h3></div>
 <div class="declaration-content"><dl><p>If file ends with EOF block, returns virtual offset of the start of EOF block.
  Otherwise, returns virtual offset of the physical end of file.</p>
 </dl>
 </div>
-<hr><div class="row-fluid declaration"><h3>BgzfBlock <span class="symbol-target" id="getBgzfBlockAt">&nbsp;</span><a class="symbol-link" href="#getBgzfBlockAt">getBgzfBlockAt</a>(ulong <i>offset</i>);
+<hr><div class="row-fluid declaration"><h3>bio.core.bgzf.block.BgzfBlock <span class="symbol-target" id="getBgzfBlockAt">&nbsp;</span><a class="symbol-link" href="#getBgzfBlockAt">getBgzfBlockAt</a>(ulong <i>offset</i>);
 </h3></div>
 <div class="declaration-content"><dl><p>Get BGZF block at a given file <i>offset</i>.</p>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>@property bio.sam.<span class="symbol-target" id="header">&nbsp;</span><a class="symbol-link" href="#header">header</a>.SamHeader <span class="symbol-target" id="header">&nbsp;</span><a class="symbol-link" href="#header">header</a>();
+</h3></div>
+<div class="declaration-content"><dl><dt>Returns</dt><dd>SAM <span class="symbol-target" id="header">&nbsp;</span><a class="symbol-link" href="#header">header</a> of the BAM file</dd>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>@property ReferenceSequenceInfo[] <span class="symbol-target" id="reference_sequences">&nbsp;</span><a class="symbol-link" href="#reference_sequences">reference_sequences</a>();
@@ -240,65 +264,104 @@
 <div class="declaration-content"><dl><dt>Returns</dt><dd>information about reference sequences</dd>
 </dl>
 </div>
-<hr><div class="row-fluid declaration"><h3>@property auto <span class="symbol-target" id="reads">&nbsp;</span><a class="symbol-link" href="#reads">reads</a>(alias IteratePolicy = withoutOffsets)();
+<hr><div class="row-fluid declaration"><h3>@property auto <span class="symbol-target" id="reads">&nbsp;</span><a class="symbol-link" href="#reads">reads</a>(alias IteratePolicy = bio.bam.readrange.withoutOffsets)();
 </h3></div>
-<div class="declaration-content"><dl><dt>Returns</dt><dd>range of all <span class="symbol-target" id="reads">&nbsp;</span><a class="symbol-link" href="#reads">reads</a> in the file.
-<br><br>
-
-        However, using several ranges is not recommended since it can hurt
-        disk access performance.</dd>
-</dl>
-</div>
-<hr><div class="row-fluid declaration"><h3>auto <span class="symbol-target" id="readsWithProgress">&nbsp;</span><a class="symbol-link" href="#readsWithProgress">readsWithProgress</a>(alias IteratePolicy = withoutOffsets)(void delegate(lazy float p) <i>progressBarFunc</i>);
-</h3></div>
-<div class="declaration-content"><dl><dt>Returns</dt><dd>range of all reads in the file, calling <span class="inlinecode">progressBarFunc</span>
-                 for each read.
-<br><br>
-
-        <span class="inlinecode">progressBarFunc</span> will be called
-        each time next alignment is read, with the argument being a number from [0.0, 1.0],
-        which is estimated progress percentage.</dd>
-</dl>
-</div>
-<hr><div class="row-fluid declaration"><h3>BamRead <span class="symbol-target" id="getReadAt">&nbsp;</span><a class="symbol-link" href="#getReadAt">getReadAt</a>(VirtualOffset <i>offset</i>);
-</h3></div>
-<div class="declaration-content"><dl><p>Get the read at a given virtual <i>offset</i>.</p>
-</dl>
-</div>
-<hr><div class="row-fluid declaration"><h3>auto <span class="symbol-target" id="getReadsBetween">&nbsp;</span><a class="symbol-link" href="#getReadsBetween">getReadsBetween</a>(VirtualOffset <i>from</i>, VirtualOffset <i>to</i>);
-</h3></div>
-<div class="declaration-content"><dl><p>Get all reads between two virtual offsets.
+<div class="declaration-content"><dl><p>Range of all alignment records in the file.
+        <br>
+        Element type of the returned range depends on the policy.
+        Default one is <a href="bio.bam.readrange.html#withoutOffsets"><span class="inlinecode">bio.bam.readrange.withoutOffsets</span></a>,
+        in this case range element type is <a href="bio.bam.read.html#BamRead"><span class="inlinecode">bio.bam.read.BamRead</span></a>.
+        <br>
+        The other option is <a href="bio.bam.readrange.html#withOffsets"><span class="inlinecode">bio.bam.readrange.withOffsets</span></a>,
+        which allows to track read virtual offsets in the file.
+        In this case range element type is <a href="bio.bam.readrange.html#BamReadBlock"><span class="inlinecode">bio.bam.readrange.BamReadBlock</span></a>.
 </p>
-<p>First offset must point <i>to</i> the start of an alignment record,
-      and be strictly less than the second one.
+<dt>Examples</dt><dd><pre class="d_code">        <span class="d_keyword">import</span> bio.bam.readrange;
+        ...
+        <span class="d_keyword">auto</span> bam = <span class="d_keyword">new</span> BamReader(<span class="d_string">"file.bam"</span>);
+        <span class="d_keyword">auto</span> <u>reads</u> = bam.<u>reads</u>!withOffsets();
+        writeln(<u>reads</u>.front.start_virtual_offset);
+</pre>
+</dd>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>auto <span class="symbol-target" id="readsWithProgress">&nbsp;</span><a class="symbol-link" href="#readsWithProgress">readsWithProgress</a>(alias IteratePolicy = bio.bam.readrange.withoutOffsets)(void delegate(lazy float p) <i>progressBarFunc</i>);
+</h3></div>
+<div class="declaration-content"><dl><dt>Returns</dt><dd>range of all reads in the file, calling <i>progressBarFunc</i>
+                 for each read.
+        <br>
+        <i>progressBarFunc</i> will be called
+        each time next alignment is read, with the argument being a number from [0.0, 1.0],
+        which is estimated progress percentage.
+        <br>
+        Notice that <i>progressBarFunc</i> takes <span class="inlinecode">lazy</span> argument,
+        so that the number of relatively expensive float division operations
+        can be controlled by user.
+
+</dd>
+<dt>Examples</dt><dd><pre class="d_code">        <span class="d_keyword">import</span> std.functional, std.stdio, bio.bam.reader;
+        <span class="d_keyword">void</span> progress(<span class="d_keyword">lazy</span> <span class="d_keyword">float</span> p) {
+            <span class="d_keyword">static</span> <span class="d_keyword">uint</span> n;
+            <span class="d_keyword">if</span> (++n % 63 == 0) writeln(p); <span class="d_comment">// prints progress after every 63 records
+</span>        }
+        ...
+        <span class="d_keyword">foreach</span> (read; bam.<u>readsWithProgress</u>(toDelegate(&amp;progress))) {
+            ...
+        }
+</pre>
+</dd>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>bio.bam.read.BamRead <span class="symbol-target" id="getReadAt">&nbsp;</span><a class="symbol-link" href="#getReadAt">getReadAt</a>(bio.core.bgzf.virtualoffset.VirtualOffset <i>offset</i>);
+</h3></div>
+<div class="declaration-content"><dl><dt>Returns</dt><dd>the read which starts at a given virtual <i>offset</i>.</dd>
+</dl>
+</div>
+<hr><div class="row-fluid declaration"><h3>auto <span class="symbol-target" id="getReadsBetween">&nbsp;</span><a class="symbol-link" href="#getReadsBetween">getReadsBetween</a>(bio.core.bgzf.virtualoffset.VirtualOffset <i>from</i>, bio.core.bgzf.virtualoffset.VirtualOffset <i>to</i>);
+</h3></div>
+<div class="declaration-content"><dl><dt>Returns</dt><dd>all reads located between two virtual offsets in the BAM file.
 <br><br>
 
-      For decompression, uses task pool specified at BamReader construction.</p>
+      <br>
+      First offset must point <i>to</i> the start of an alignment record,
+      and be strictly less than the second one.
+      <br>
+      For decompression, the task pool specified at the construction is used.</dd>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>Chunk[] <span class="symbol-target" id="getChunks">&nbsp;</span><a class="symbol-link" href="#getChunks">getChunks</a>(int <i>ref_id</i>, int <i>beg</i>, int <i>end</i>);
 </h3></div>
-<div class="declaration-content"><dl><p>Get BAI chunks containing all reads overlapping specified region.</p>
+<div class="declaration-content"><dl><p>Get BAI chunks containing all reads that overlap specified region.</p>
 </dl>
 </div>
-<hr><div class="row-fluid declaration"><h3>ReferenceSequence <span class="symbol-target" id="reference">&nbsp;</span><a class="symbol-link" href="#reference">reference</a>(int <i>ref_id</i>);
+<hr><div class="row-fluid declaration"><h3>bio.bam.<span class="symbol-target" id="reference">&nbsp;</span><a class="symbol-link" href="#reference">reference</a>.ReferenceSequence <span class="symbol-target" id="reference">&nbsp;</span><a class="symbol-link" href="#reference">reference</a>(int <i>ref_id</i>);
 </h3></div>
-<div class="declaration-content"><dl><p>Returns <span class="symbol-target" id="reference">&nbsp;</span><a class="symbol-link" href="#reference">reference</a> sequence with id <span class="inlinecode"><i>ref_id</i></span>.</p>
+<div class="declaration-content"><dl><p>Returns <span class="symbol-target" id="reference">&nbsp;</span><a class="symbol-link" href="#reference">reference</a> sequence with id <i><i>ref_id</i></i>.</p>
 </dl>
 </div>
-<hr><div class="row-fluid declaration"><h3>ReferenceSequence <span class="symbol-target" id="opIndex">&nbsp;</span><a class="symbol-link" href="#opIndex">opIndex</a>(string <i>ref_name</i>);
+<hr><div class="row-fluid declaration"><h3>bio.bam.reference.ReferenceSequence <span class="symbol-target" id="opIndex">&nbsp;</span><a class="symbol-link" href="#opIndex">opIndex</a>(string <i>ref_name</i>);
 </h3></div>
-<div class="declaration-content"><dl><p>Returns reference sequence named <span class="inlinecode"><i>ref_name</i></span>.</p>
+<div class="declaration-content"><dl><p>Returns reference sequence named <i><i>ref_name</i></i>.
+</p>
+<dt>Examples</dt><dd><pre class="d_code">      <span class="d_keyword">import</span> std.stdio, bio.bam.reader;
+      ...
+      <span class="d_keyword">auto</span> bam = <span class="d_keyword">new</span> BamReader(<span class="d_string">"file.bam"</span>);
+      writeln(bam[<span class="d_string">"chr2"</span>].length);
+</pre>
+</dd>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>bool <span class="symbol-target" id="hasReference">&nbsp;</span><a class="symbol-link" href="#hasReference">hasReference</a>(string <i>ref_name</i>);
 </h3></div>
-<div class="declaration-content"><dl><p>Check if reference named <span class="inlinecode"><i>ref_name</i></span> is presented in BAM header.</p>
+<div class="declaration-content"><dl><p>Check if reference named <i><i>ref_name</i></i> is presented in BAM header.</p>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="setBufferSize">&nbsp;</span><a class="symbol-link" href="#setBufferSize">setBufferSize</a>(size_t <i>buffer_size</i>);
 </h3></div>
-<div class="declaration-content"><dl><p>Set buffer size for I/O operations.</p>
+<div class="declaration-content"><dl><p>Set buffer size for I/O operations.
+      <br>
+      This can help in multithreaded applications when several files are read
+      simultaneously (e.g. merging).</p>
 </dl>
 </div>
 </div>
