@@ -204,33 +204,47 @@
 <hr><div class="row-fluid declaration"><h3>class <span class="symbol-target" id="BamWriter">&nbsp;</span><a class="symbol-link" href="#BamWriter">BamWriter</a>;
 </h3></div>
 <div class="declaration-content"><dl><p>Class for outputting BAM.
- Tries to write reads so that they don't cross BGZF block borders.</p>
+    <br>
+    Compresses BGZF blocks in parallel.
+    Tries to write reads so that they don't cross BGZF block borders.
+    <br>
+    Usage is very simple, see example below.
+</p>
+<dt>Examples</dt><dd><pre class="d_code">    <span class="d_keyword">import</span> bio.bam.writer, bio.bam.reader;
+    ...
+    <span class="d_keyword">auto</span> src = <span class="d_keyword">new</span> BamReader(<span class="d_string">"in.bam"</span>);
+    <span class="d_keyword">auto</span> dst = <span class="d_keyword">new</span> <u>BamWriter</u>(<span class="d_string">"out.bam"</span>, 9); <span class="d_comment">// maximal compression
+</span>    <span class="d_keyword">scope</span> (exit) dst.finish();              <span class="d_comment">// close the stream at exit
+</span>    dst.writeSamHeader(src.header);         <span class="d_comment">// copy header and reference sequence info
+</span>    dst.writeReferenceSequenceInfo(src.reference_sequences);
+    <span class="d_keyword">foreach</span> (read; src.reads) {
+        <span class="d_keyword">if</span> (read.mapping_quality &gt; 10)      <span class="d_comment">// skip low-quality reads
+</span>            dst.writeRecord(read);
+    }
+</pre>
+</dd>
 </dl>
-<div class="offset1 member-list"><hr><div class="row-fluid declaration"><h3> this(Stream <i>stream</i>, int <i>compression_level</i> = -1, TaskPool <i>task_pool</i> = taskPool);
+<div class="offset1 member-list"><hr><div class="row-fluid declaration"><h3> this(std.<i>stream</i>.Stream <i>stream</i>, int <i>compression_level</i> = -1, std.parallelism.TaskPool <i>task_pool</i> = std.parallelism.taskPool);
+<br> this(string <i>filename</i>, int <i>compression_level</i> = -1, std.parallelism.TaskPool <i>task_pool</i> = std.parallelism.taskPool);
 </h3></div>
-<div class="declaration-content"><dl><p>Create new BAM writer outputting to <span class="inlinecode"><i>stream</i></span>.
+<div class="declaration-content"><dl><p>Creates new BAM writer outputting to file or <i><i>stream</i></i>.
  Automatically writes BAM magic number (4 bytes).
 </p>
 <dt>Parameters</dt><dd><table class="table table-condensed table-bordered"><tr><td>int <i>compression_level</i></td>
 <td>compression level, must be in range -1..9</td></tr>
-<tr><td>TaskPool <i>task_pool</i></td>
+<tr><td>std.parallelism.TaskPool <i>task_pool</i></td>
 <td>task pool to use for parallel compression</td></tr>
 </table></dd>
 </dl>
 </div>
-<hr><div class="row-fluid declaration"><h3> this(string <i>filename</i>, int <i>compression_level</i> = -1, TaskPool <i>task_pool</i> = taskPool);
+<hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="writeSamHeader">&nbsp;</span><a class="symbol-link" href="#writeSamHeader">writeSamHeader</a>(bio.sam.<i>header</i>.SamHeader <i>header</i>);
 </h3></div>
-<div class="declaration-content"><dl><p>Create new BAM writer outputting to specified file.</p>
-</dl>
-</div>
-<hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="writeSamHeader">&nbsp;</span><a class="symbol-link" href="#writeSamHeader">writeSamHeader</a>(SamHeader <i>header</i>);
-</h3></div>
-<div class="declaration-content"><dl><p>Write SAM <i>header</i>. Should be called after construction.</p>
+<div class="declaration-content"><dl><p>Writes SAM <i>header</i>. Should be called after construction.</p>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="writeReferenceSequenceInfo">&nbsp;</span><a class="symbol-link" href="#writeReferenceSequenceInfo">writeReferenceSequenceInfo</a>(ReferenceSequenceInfo[] <i>reference_sequences</i>);
 </h3></div>
-<div class="declaration-content"><dl><p>Write reference sequence information. Should be called after
+<div class="declaration-content"><dl><p>Writes reference sequence information. Should be called after
  dumping SAM header. Writer will store this array to use later for
  resolving read reference IDs to names.
 </p>
@@ -239,17 +253,17 @@
 </div>
 <hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="writeRecord">&nbsp;</span><a class="symbol-link" href="#writeRecord">writeRecord</a>(R)(R <i>read</i>);
 </h3></div>
-<div class="declaration-content"><dl><p>Write BAM read. Throws exception if read reference ID is out of range.</p>
+<div class="declaration-content"><dl><p>Writes BAM read. Throws exception if read reference ID is out of range.</p>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="flush">&nbsp;</span><a class="symbol-link" href="#flush">flush</a>();
 </h3></div>
-<div class="declaration-content"><dl><p>Flush data into stream.</p>
+<div class="declaration-content"><dl><p>Flushes current BGZF block.</p>
 </dl>
 </div>
 <hr><div class="row-fluid declaration"><h3>void <span class="symbol-target" id="finish">&nbsp;</span><a class="symbol-link" href="#finish">finish</a>();
 </h3></div>
-<div class="declaration-content"><dl><p>Flush buffer and close output stream. Adds BAM EOF block automatically.</p>
+<div class="declaration-content"><dl><p>Flushes buffer and closes output stream. Adds BAM EOF block automatically.</p>
 </dl>
 </div>
 </div>
