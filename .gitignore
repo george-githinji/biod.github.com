@@ -1,5 +1,5 @@
-.gitmodules
+*.gitmodules
+*.gitignore
 old_docs/
 .DS_Store
 .swp
-
